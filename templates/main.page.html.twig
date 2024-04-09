@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Homepage
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+
+{% block body %}
+    <div>
+        {% if app.user %}
+            Hallo {{ app.user.username }}
+        {% endif %}
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+{% endblock %}

@@ -1,16 +1,23 @@
 <?php
 
 namespace App\Entity;
+use App\Repository\AccessTokenRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 use Symfony\Component\Uid\Uuid;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: AccessTokenRepository::class)]
 class AccessToken
 {
     /**
      * @var Uuid $id
      */
-    #[ORM\Id, ORM\Column(type: "uuid"), ORM\GeneratedValue]
+    #[
+        ORM\Id,
+        ORM\Column(type:"uuid", unique:true),
+        ORM\GeneratedValue(strategy:"CUSTOM"),
+        ORM\CustomIdGenerator(class:UuidGenerator::class)
+    ]
     private Uuid $id;
 
     #[ORM\Column(type: "text")]

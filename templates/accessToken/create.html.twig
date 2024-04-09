@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Create Access Token
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {{ form_start(accessTokenForm) }}
+
+        {{ form_row(accessTokenForm.name) }}
+        {{ form_row(accessTokenForm.submit) }}
+
+        {{ form_end(accessTokenForm) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}

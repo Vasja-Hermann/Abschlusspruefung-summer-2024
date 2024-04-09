@@ -12,16 +12,6 @@ class Main extends AbstractController
     #[Route(path: '/', name: 'app_main')]
     public function main(Request $request): Response
     {
-        if(!$request->headers->get('rabbitmq_token')) {
-            return $this->redirectToRoute("app_main_homepage");
-        } else {
-            dump($request->headers);
-            die();
-        }
-    }
-    #[Route(path: '/homepage', name: 'app_main_homepage')]
-    public function homepage(): Response
-    {
-        return $this->render("base.html.twig",[]);
+        return $this->redirectToRoute("access_token_list");
     }
 }

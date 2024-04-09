@@ -9,21 +9,18 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
+use App\Controller\AiArticlesController;
 use App\State\AiArticleProcessor;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 use Symfony\Component\Uid\Uuid;
 
 /** AI generated Article */
 #[ApiResource(shortName: "AiArticle",
     description: "This Endpoint works with the base Article to generate AI Articles",
     operations: [
-        new Get(),
-        new GetCollection(),
         new Post(processor: AiArticleProcessor::class),
-        new Put(),
-        new Patch(),
-        new Delete()
     ],
     formats: ['json', 'html']
 )]
@@ -34,7 +31,12 @@ class AiArticle
      * @var Uuid $id
      * the ID for the created AI Article
      */
-    #[ORM\Id, ORM\Column(type: "uuid"), ORM\GeneratedValue]
+    #[
+        ORM\Id,
+        ORM\Column(type:"uuid", unique:true),
+        ORM\GeneratedValue(strategy:"CUSTOM"),
+        ORM\CustomIdGenerator(class:UuidGenerator::class)
+    ]
     private Uuid $id;
 
     /**
