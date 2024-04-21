@@ -20,6 +20,11 @@ class AIMessageNotification
         $result = [];
         if($data instanceof AiArticle) {
             try {
+                $quantity = 5;
+                if($data->getQuantity() > 0 && $data->getQuantity() !== 5) {
+                    $quantity = $data->getQuantity();
+                }
+
                 $apiKey = $_ENV['OPENAI_API_KEY'];
                 $client = OpenAI::client($apiKey);
                 $result[] = [
@@ -28,10 +33,10 @@ class AIMessageNotification
                         'messages' => [
                             ['role' => 'user', 'content' => $data->getPrompt() . "\n" . $data->getText()],
                         ],
-                        'n' => $data->getQuantity()
+                        'n' => $quantity
                     ])->choices,
                     'tenant' => $data->getTenant(),
-                    'locale' => $data->getLocale(),
+                    'locale' => "de",
                     'parentUuid' => $data->getParentUuid()
                 ];
             } catch (\Exception $exception) {

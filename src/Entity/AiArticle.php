@@ -3,13 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\Delete;
-use ApiPlatform\Metadata\Get;
-use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
-use ApiPlatform\Metadata\Put;
-use App\Controller\AiArticlesController;
 use App\State\AiArticleProcessor;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
@@ -20,7 +14,7 @@ use Symfony\Component\Uid\Uuid;
 #[ApiResource(shortName: "AiArticle",
     description: "This Endpoint works with the base Article to generate AI Articles",
     operations: [
-        new Post(processor: AiArticleProcessor::class),
+        new Post(stateless: false, processor: AiArticleProcessor::class),
     ],
     formats: ['json', 'html']
 )]
